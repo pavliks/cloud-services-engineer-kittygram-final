@@ -147,7 +147,7 @@ jobs:
       - name: Copy files to server
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/kittygram"
-          scp .env docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/kittygram/
+          scp .env docker-compose.production.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/kittygram/
 
       - name: Deploy application
         run: |
