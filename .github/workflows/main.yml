@@ -143,19 +143,18 @@ jobs:
           DB_PORT=5432
           EOF
 
-      - name: Create Docker context
+      - name: Copy files to server
         run: |
-          docker context create kittygram-production \
-            --docker "host=ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}"
-        continue-on-error: true
-
-      - name: Use Docker context
-        run: docker context use kittygram-production
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ~/kittygram"
+          scp .env docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/kittygram/
 
       - name: Deploy application
         run: |
-          docker compose -f docker-compose.yml pull
-          docker compose -f docker-compose.yml up -d
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd ~/kittygram
+            docker compose pull
+            docker compose up -d
+          "
 
   auto_tests:
     name: auto_tests
