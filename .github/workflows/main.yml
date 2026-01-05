@@ -141,6 +141,7 @@ jobs:
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           DB_HOST=postgres
           DB_PORT=5432
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
           EOF
 
       - name: Copy files to server
