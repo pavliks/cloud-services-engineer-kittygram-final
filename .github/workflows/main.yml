@@ -142,6 +142,7 @@ jobs:
           DB_HOST=postgres
           DB_PORT=5432
           SECRET_KEY=${{ secrets.SECRET_KEY }}
+          DEBUG=False
           DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
           EOF
 
